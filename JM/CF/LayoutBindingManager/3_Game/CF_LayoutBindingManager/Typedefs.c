@@ -21,6 +21,7 @@ typedef CF_LBM_RelayCommandHashMap RelayCommandHashMap;
 typedef CF_LBM_TypenameHashMap TypenameHashMap;
 typedef CF_LBM_TypeConversionHashMap TypeConversionHashMap;
 typedef CF_LBM MVC;
+typedef CF_LBM LayoutBindingManager;
 typedef CF_LBM_Controller Controller;
 typedef CF_LBM_ScriptedViewBase ScriptedViewBase;
 typedef CF_LBM_ScriptView ScriptView;
