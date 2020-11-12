@@ -14,14 +14,14 @@ class SampleControllerClass
 }
 
 // Check JM/CF/GUI/layouts/sample_LayoutBindingManager.layout
-class SampleController: Controller
+class SampleController: CF_LBM_Controller
 {	
 	// Properties
 	float slider_value = 25; // default value will be 25
 	float progress_value = 75; // default value will be 75
 	
 	ButtonWidget text_list_add;
-	ref ObservableCollection<string> observable_list_box = new ObservableCollection<string>(this);
+	ref CF_LBM_ObservableCollection<string> observable_list_box = new CF_LBM_ObservableCollection<string>(this);
 
 	int counter_left_value = 0;
 	int counter_right_value = 3;
@@ -68,35 +68,35 @@ class SampleController: Controller
 		}
 	}
 	
-	bool SwapItemsExecute(ButtonCommandArgs args)
+	bool SwapItemsExecute(CF_LBM_ButtonCommandArgs args)
 	{		
 		observable_list_box.SwapItems(counter_left_value, counter_right_value);
 		
 		return true;
 	}
 	
-	bool LeftCounterIncrementExecute(ButtonCommandArgs args)
+	bool LeftCounterIncrementExecute(CF_LBM_ButtonCommandArgs args)
 	{
 		counter_left_value++;
 		NotifyPropertyChanged("counter_left_value");
 		return true;
 	}
 		
-	bool LeftCounterDecrementExecute(ButtonCommandArgs args)
+	bool LeftCounterDecrementExecute(CF_LBM_ButtonCommandArgs args)
 	{
 		counter_left_value--;
 		NotifyPropertyChanged("counter_left_value");
 		return true;
 	}	
 	
-	bool RightCounterIncrementExecute(ButtonCommandArgs args)
+	bool RightCounterIncrementExecute(CF_LBM_ButtonCommandArgs args)
 	{
 		counter_right_value++;
 		NotifyPropertyChanged("counter_right_value");
 		return true;
 	}
 		
-	bool RightCounterDecrementExecute(ButtonCommandArgs args)
+	bool RightCounterDecrementExecute(CF_LBM_ButtonCommandArgs args)
 	{
 		counter_right_value--;
 		NotifyPropertyChanged("counter_right_value");
@@ -117,7 +117,7 @@ class SampleController: Controller
 
 // You can have sub controllers within windows for organization
 // they wont interfere with each other
-class SampleSubController: Controller
+class SampleSubController: CF_LBM_Controller
 {
 	// Note: Selected_Item on CheckBoxWidgets & ButtonWidgets binds the Text of a widget. 
 	bool button_state = true;
@@ -130,7 +130,7 @@ class SampleSubController: Controller
 	ref SampleControllerClass m_SampleControllerClass = new SampleControllerClass();
 	
 	int observable_combo_selection;
-	ref ObservableCollection<string> observable_combo_box = new ObservableCollection<string>(this);
+	ref CF_LBM_ObservableCollection<string> observable_combo_box = new CF_LBM_ObservableCollection<string>(this);
 	
 	static const int COLOR_ON = COLOR_GREEN;
 	static const int COLOR_OFF = COLOR_RED;
@@ -179,7 +179,7 @@ class SampleSubController: Controller
 		}
 	}
 	
-	bool SampleClassButtonExecute(ButtonCommandArgs args)
+	bool SampleClassButtonExecute(CF_LBM_ButtonCommandArgs args)
 	{
 		m_SampleControllerClass.value++;
 		NotifyPropertyChanged("m_SampleControllerClass.value");

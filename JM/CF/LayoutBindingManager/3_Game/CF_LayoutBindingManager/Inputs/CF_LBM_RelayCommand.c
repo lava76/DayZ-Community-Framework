@@ -1,16 +1,16 @@
 // Abstract Class
-class RelayCommand
+class CF_LBM_RelayCommand
 {
 	private	bool m_CanExecute = true;
 
-	protected Controller m_Controller;
-	void SetController(Controller controller)
+	protected CF_LBM_Controller m_Controller;
+	void SetController(CF_LBM_Controller controller)
 	{
 		m_Controller = controller;
 	}
 
-	protected ViewBinding m_ViewBinding;
-	void SetViewBinding(ViewBinding viewBinding)
+	protected CF_LBM_ViewBinding m_ViewBinding;
+	void SetViewBinding(CF_LBM_ViewBinding viewBinding)
 	{
 		m_ViewBinding = viewBinding;
 	}
@@ -21,7 +21,7 @@ class RelayCommand
 		return m_CanExecute;
 	}
 
-	// sets whether or not RelayCommand can be executed
+	// sets whether or not CF_LBM_RelayCommand can be executed
 	// depreciate if BI ever adds property Getters and Setters
 	void SetCanExecute(bool state)
 	{
@@ -33,7 +33,7 @@ class RelayCommand
 
 	// called when type is Clicked, Selected, or Changed
 	// Return: Handled (if false, will continue to execute up the tree)
-	bool Execute(Class sender, CommandArgs args);
+	bool Execute(Class sender, CF_LBM_CommandArgs args);
 
 	// Abstract function called when execution ability is changed
 	void CanExecuteChanged(bool state);

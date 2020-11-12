@@ -6,14 +6,14 @@ class LayoutBindingManagerPlugin: WorkbenchPlugin
 	
 	override void Run()
 	{
-		Log_Level = LBMLogLevel;
+		Log_Level = CF_LBM_LogLevel;
 		Workbench.ScriptDialog("Edit LayoutBindingManager Settings", "", this);
 	}
 	
 	[ButtonAttribute("OK")]
 	void DialogOk()
 	{
-		LBMLogLevel = Log_Level;
+		CF_LBM_LogLevel = Log_Level;
 	}
 		
 	[ButtonAttribute("Cancel")]

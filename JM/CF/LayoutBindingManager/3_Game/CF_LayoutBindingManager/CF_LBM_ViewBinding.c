@@ -1,4 +1,4 @@
-class ViewBinding : ScriptedViewBase
+class CF_LBM_ViewBinding : CF_LBM_ScriptedViewBase
 {
 	// Name of Variable to bind to
 	reference string Binding_Name;
@@ -9,30 +9,30 @@ class ViewBinding : ScriptedViewBase
 	// If true, Bindings go both ways. Otherwise the controller is the master
 	reference bool Two_Way_Binding;
 
-	// Type of RelayCommand class that is controlled by ViewBinding
+	// Type of CF_LBM_RelayCommand class that is controlled by CF_LBM_ViewBinding
 	reference string Relay_Command;
 
 	// Strong reference to Relay Command
-	protected autoptr RelayCommand m_RelayCommand;
-	void SetRelayCommand(RelayCommand relayCommand)
+	protected autoptr CF_LBM_RelayCommand m_RelayCommand;
+	void SetRelayCommand(CF_LBM_RelayCommand relayCommand)
 	{
 		m_RelayCommand = relayCommand;
 		m_RelayCommand.SetViewBinding(this);
 	}
 
-	RelayCommand GetRelayCommand()
+	CF_LBM_RelayCommand GetRelayCommand()
 	{
 		return m_RelayCommand;
 	}
 
-	protected autoptr TypeConverter m_PropertyConverter;
-	TypeConverter GetPropertyConverter()
+	protected autoptr CF_LBM_TypeConverter m_PropertyConverter;
+	CF_LBM_TypeConverter GetPropertyConverter()
 	{
 		return m_PropertyConverter;
 	}
 
-	protected autoptr TypeConverter m_SelectedConverter;
-	TypeConverter GetSelectedConverter()
+	protected autoptr CF_LBM_TypeConverter m_SelectedConverter;
+	CF_LBM_TypeConverter GetSelectedConverter()
 	{
 		return m_SelectedConverter;
 	}
@@ -56,28 +56,28 @@ class ViewBinding : ScriptedViewBase
 		// Were not trying to data bind to empty Binding_Name
 		if (binding_type && Binding_Name != string.Empty)
 		{
-			Log("Loading TypeConverter for Variable: %1 of Type: %2", Binding_Name, binding_type.ToString());
-			m_PropertyConverter = LayoutBindingManager.GetTypeConversion(binding_type);
+			Log("Loading CF_LBM_TypeConverter for Variable: %1 of Type: %2", Binding_Name, binding_type.ToString());
+			m_PropertyConverter = CF_LBM.GetTypeConversion(binding_type);
 			if (!m_PropertyConverter)
 			{
-				Error("Could not find TypeConverter for type %1 in %2\n\nMod LayoutBindingManager.RegisterConversionTemplates to register custom TypeConverters", binding_type.ToString(), Binding_Name);
+				Error("Could not find CF_LBM_TypeConverter for type %1 in %2\n\nMod CF_LBM.RegisterConversionTemplates to register custom TypeConverters", binding_type.ToString(), Binding_Name);
 			}
 		}
 
 		// Were not trying to data bind to empty Selected_Item
 		if (selected_type && Selected_Item != string.Empty)
 		{
-			Log("Loading TypeConverter for Variable: %1 of Type: %2", Selected_Item, selected_type.ToString());
-			m_SelectedConverter = LayoutBindingManager.GetTypeConversion(selected_type);
+			Log("Loading CF_LBM_TypeConverter for Variable: %1 of Type: %2", Selected_Item, selected_type.ToString());
+			m_SelectedConverter = CF_LBM.GetTypeConversion(selected_type);
 			if (!m_SelectedConverter)
 			{
-				Error("Could not find TypeConverter for type %1 in %2\n\nMod LayoutBindingManager.RegisterConversionTemplates to register custom TypeConverters", selected_type.ToString(), Selected_Item);
+				Error("Could not find CF_LBM_TypeConverter for type %1 in %2\n\nMod CF_LBM.RegisterConversionTemplates to register custom TypeConverters", selected_type.ToString(), Selected_Item);
 			}
 		}
 	}
 
 	// Controller -> view
-	void UpdateView(Controller controller)
+	void UpdateView(CF_LBM_Controller controller)
 	{
 		Trace("UpdateView");
 		if (!m_WidgetController)
@@ -101,7 +101,7 @@ class ViewBinding : ScriptedViewBase
 	}
 
 	// View -> Controller
-	void UpdateController(Controller controller)
+	void UpdateController(CF_LBM_Controller controller)
 	{
 		Trace("UpdateController");
 		if (!m_WidgetController)
@@ -127,7 +127,7 @@ class ViewBinding : ScriptedViewBase
 	}
 
 	// Collection -> view
-	void UpdateViewFromCollection(CollectionChangedEventArgs args)
+	void UpdateViewFromCollection(CF_LBM_CollectionChangedEventArgs args)
 	{
 		Trace("UpdateViewFromCollection");
 
@@ -136,8 +136,8 @@ class ViewBinding : ScriptedViewBase
 
 		Log("Updating Collection View: %1", m_LayoutRoot.Type().ToString());
 
-		// We dont want to work with type Observable for everything
-		TypeConverter collectionConverter = args.Source.GetTypeConverter();
+		// We dont want to work with type CF_LBM_Observable for everything
+		CF_LBM_TypeConverter collectionConverter = args.Source.GetTypeConverter();
 		if (!collectionConverter)
 		{
 			Error("Type Converter not found for Collection %1", args.Source.ToString());
@@ -152,44 +152,44 @@ class ViewBinding : ScriptedViewBase
 
 		switch (args.ChangedAction)
 		{
-			case NotifyCollectionChangedAction.Insert:
+			case CF_LBM_NotifyCollectionChangedAction.Insert:
 			{
 				m_WidgetController.Insert(collectionConverter);
 				break;
 			}
 
-			case NotifyCollectionChangedAction.InsertAt:
+			case CF_LBM_NotifyCollectionChangedAction.InsertAt:
 			{
 				m_WidgetController.InsertAt(args.ChangedIndex, collectionConverter);
 				break;
 			}
 
-			case NotifyCollectionChangedAction.Remove:
+			case CF_LBM_NotifyCollectionChangedAction.Remove:
 			{
 				m_WidgetController.Remove(args.ChangedIndex, collectionConverter);
 				break;
 			}
 
-			case NotifyCollectionChangedAction.Replace:
+			case CF_LBM_NotifyCollectionChangedAction.Replace:
 			{
 				m_WidgetController.Replace(args.ChangedIndex, collectionConverter);
 				break;
 			}
 
-			case NotifyCollectionChangedAction.Move:
+			case CF_LBM_NotifyCollectionChangedAction.Move:
 			{
 				m_WidgetController.Move(args.ChangedIndex, collectionConverter);
 				break;
 			}
 
-			case NotifyCollectionChangedAction.Swap:
+			case CF_LBM_NotifyCollectionChangedAction.Swap:
 			{
-				CollectionSwapArgs swap_args = CollectionSwapArgs.Cast(args.ChangedValue);
+				CF_LBM_CollectionSwapArgs swap_args = CF_LBM_CollectionSwapArgs.Cast(args.ChangedValue);
 				m_WidgetController.Swap(swap_args.param1, swap_args.param2);
 				break;
 			}
 
-			case NotifyCollectionChangedAction.Clear:
+			case CF_LBM_NotifyCollectionChangedAction.Clear:
 			{
 				m_WidgetController.Clear();
 				break;
@@ -197,13 +197,13 @@ class ViewBinding : ScriptedViewBase
 
 			default:
 			{
-				Error("Invalid NotifyCollectionChangedAction Type %1", args.ChangedAction.ToString());
+				Error("Invalid CF_LBM_NotifyCollectionChangedAction Type %1", args.ChangedAction.ToString());
 			}
 		}
 	}
 
 	// View -> Collection
-	void UpdateCollectionFromView(ref CollectionChangedEventArgs args)
+	void UpdateCollectionFromView(ref CF_LBM_CollectionChangedEventArgs args)
 	{
 		Trace("UpdateCollectionFromView");
 
@@ -213,7 +213,7 @@ class ViewBinding : ScriptedViewBase
 		Log("Updating Collection from View: %1", m_LayoutRoot.Type().ToString());
 	}
 
-	private bool InvokeCommand(ScriptedViewBase context, CommandArgs args)
+	private bool InvokeCommand(CF_LBM_ScriptedViewBase context, CF_LBM_CommandArgs args)
 	{
 		Trace("InvokeCommand");
 
@@ -221,7 +221,7 @@ class ViewBinding : ScriptedViewBase
 		args.Context = this;
 		if (m_RelayCommand && m_RelayCommand.CanExecute())
 		{
-			Log("Attempting to execute RelayCommand %1", Relay_Command);
+			Log("Attempting to execute CF_LBM_RelayCommand %1", Relay_Command);
 			handled = m_RelayCommand.Execute(context, args);
 		} else if (!m_RelayCommand && Relay_Command != string.Empty)
 		{
@@ -250,7 +250,7 @@ class ViewBinding : ScriptedViewBase
 		{
 			case ButtonWidget:
 			{ // only thing that isnt called in OnChange for some reason
-				if (InvokeCommand(this, new ButtonCommandArgs(ButtonWidget.Cast(w), button)))
+				if (InvokeCommand(this, new CF_LBM_ButtonCommandArgs(ButtonWidget.Cast(w), button)))
 				{
 					// Weird situation but I need to call UpdateController from Controller without calling OnClick
 					// if (w) is just an edge case if the object is deleted inside of the Command
@@ -274,7 +274,7 @@ class ViewBinding : ScriptedViewBase
 		{
 			case CheckBoxWidget:
 			{
-				if (InvokeCommand(this, new CheckBoxCommandArgs(CheckBoxWidget.Cast(w))))
+				if (InvokeCommand(this, new CF_LBM_CheckBoxCommandArgs(CheckBoxWidget.Cast(w))))
 				{
 					// Weird situation but I need to call UpdateController from Controller without calling OnChange
 					// if (w) is just an edge case if the object is deleted inside of the Command
@@ -291,16 +291,16 @@ class ViewBinding : ScriptedViewBase
 	}
 
 	/*
-	void HandleDropReceived(ScriptedViewBase drop_target, Controller controller)
+	void HandleDropReceived(CF_LBM_ScriptedViewBase drop_target, CF_LBM_Controller controller)
 	{
-		EditorLog.Trace("ViewBinding::HandleDropReceived");
+		EditorLog.Trace("CF_LBM_ViewBinding::HandleDropReceived");
 		Print(drop_target);
 		Print(m_WidgetController);
 		if (!m_WidgetController || !m_WidgetController.CanTwoWayBind() || !Two_Way_Binding) return;
 		
 
 			
-		Observable collection;
+		CF_LBM_Observable collection;
 		EnScript.GetClassVar(controller, Binding_Name, 0, collection);
 		Print(collection);
 		if (collection) {
@@ -315,7 +315,7 @@ class ViewBinding : ScriptedViewBase
 				if (find != -1) {
 					Print(drop_target);
 					//m_WidgetController.InsertAt(find + 1, drop_target.GetTypeConversion());
-					g_Script.CallFunctionParams(collection, "InsertAtEx", null, new Param2<TypeConverter, int>(GetTypeConversion(), find + 1));
+					g_Script.CallFunctionParams(collection, "InsertAtEx", null, new Param2<CF_LBM_TypeConverter, int>(GetTypeConversion(), find + 1));
 				}
 			} else {
 				g_Script.Call(collection, "Insert", drop_target);

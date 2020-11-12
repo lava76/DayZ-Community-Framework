@@ -1,6 +1,6 @@
 
-// Base type for all primary view Types (ScriptView, Controller, ViewBinding)
-class ScriptedViewBase : Managed
+// Base type for all primary view Types (CF_LBM_ScriptView, Controller, CF_LBM_ViewBinding)
+class CF_LBM_ScriptedViewBase : Managed
 {
 	// Enable verbose logging
 	[NonSerialized()]
@@ -16,36 +16,36 @@ class ScriptedViewBase : Managed
 
 	// Source Widget Controller
 	[NonSerialized()]
-	protected autoptr WidgetController m_WidgetController;
-	WidgetController GetWidgetController()
+	protected autoptr CF_LBM_WidgetController m_WidgetController;
+	CF_LBM_WidgetController GetWidgetController()
 	{
 		return m_WidgetController;
 	}
 
-	// ScriptedViewBase Type Converter
+	// CF_LBM_ScriptedViewBase Type Converter
 	[NonSerialized()]
-	protected autoptr TypeConverter m_TypeConverter;
-	TypeConverter GetTypeConversion()
+	protected autoptr CF_LBM_TypeConverter m_TypeConverter;
+	CF_LBM_TypeConverter GetTypeConversion()
 	{
 		return m_TypeConverter;
 	}
 
-	// ScriptedViewBase parent
+	// CF_LBM_ScriptedViewBase parent
 	[NonSerialized()]
-	protected ScriptedViewBase m_ParentScriptedViewBase;
-	ScriptedViewBase GetParent()
+	protected CF_LBM_ScriptedViewBase m_ParentScriptedViewBase;
+	CF_LBM_ScriptedViewBase GetParent()
 	{
 		return m_ParentScriptedViewBase;
 	}
 
 	[NonSerialized()]
-	protected autoptr ScriptedViewBaseHandler m_ScriptedViewBaseHandler;
-	ScriptedViewBaseHandler GetHandler()
+	protected autoptr CF_LBM_ScriptedViewBaseHandler m_ScriptedViewBaseHandler;
+	CF_LBM_ScriptedViewBaseHandler GetHandler()
 	{
 		return m_ScriptedViewBaseHandler;
 	}
 
-	void SetParent(ScriptedViewBase parent)
+	void SetParent(CF_LBM_ScriptedViewBase parent)
 	{
 		m_ParentScriptedViewBase = parent;
 
@@ -53,23 +53,23 @@ class ScriptedViewBase : Managed
 		Debug_Logging = Debug_Logging || m_ParentScriptedViewBase.Debug_Logging;
 	}
 
-	void ScriptedViewBase()
+	void CF_LBM_ScriptedViewBase()
 	{
 		if (Debug_Logging)
 			PrintFormat("[Log] %1", this);
 
-		m_TypeConverter = LayoutBindingManager.GetTypeConversion(Type());
+		m_TypeConverter = CF_LBM.GetTypeConversion(Type());
 		if (!m_TypeConverter)
 		{
-			Error("Could not generate TypeConverter on %1", Type().ToString());
+			Error("Could not generate CF_LBM_TypeConverter on %1", Type().ToString());
 			return;
 		}
 
-		m_ScriptedViewBaseHandler = new ScriptedViewBaseHandler(this);
+		m_ScriptedViewBaseHandler = new CF_LBM_ScriptedViewBaseHandler(this);
 		m_TypeConverter.Set(this);
 	}
 
-	void ~ScriptedViewBase()
+	void ~CF_LBM_ScriptedViewBase()
 	{
 		if (Debug_Logging)
 			PrintFormat("[Log] ~%1", this);
@@ -81,22 +81,22 @@ class ScriptedViewBase : Managed
 		m_LayoutRoot = w;
 		m_LayoutRoot.SetHandler(m_ScriptedViewBaseHandler);
 
-		m_WidgetController = LayoutBindingManager.GetWidgetController(m_LayoutRoot);
+		m_WidgetController = CF_LBM.GetWidgetController(m_LayoutRoot);
 		if (!m_WidgetController)
 		{
-			Error("Could not find WidgetController for type %1\n\nOverride LayoutBindingManager.RegisterWidgetControllers to register custom WidgetControllers", m_LayoutRoot.GetTypeName());
+			Error("Could not find CF_LBM_WidgetController for type %1\n\nOverride CF_LBM.RegisterWidgetControllers to register custom WidgetControllers", m_LayoutRoot.GetTypeName());
 			return;
 		}
 	}
 
-	ScriptedViewBase GetScriptedRoot()
+	CF_LBM_ScriptedViewBase GetScriptedRoot()
 	{
-		ScriptedViewBase viewBase = this;
+		CF_LBM_ScriptedViewBase viewBase = this;
 		FindScriptedRoot(viewBase);
 		return viewBase;
 	}
 
-	static void FindScriptedRoot(out ScriptedViewBase viewBase)
+	static void FindScriptedRoot(out CF_LBM_ScriptedViewBase viewBase)
 	{
 		if (viewBase && viewBase.GetParent())
 		{
@@ -108,7 +108,7 @@ class ScriptedViewBase : Managed
 	void Trace(string message, string param1 = "", string param2 = "", string param3 = "", string param4 = "", string param5 = "", string param6 = "", string param7 = "", string param8 = "", string param9 = "")
 	{
 		//#ifdef COMPONENT_SYSTEM
-		if (Debug_Logging) // || LBMLogLevel >= LogLevel.TRACE
+		if (Debug_Logging) // || CF_LBM_LogLevel >= LogLevel.TRACE
 			PrintFormat("[Trace] %1 - %2 ", Type(), string.Format(message, param1, param2, param3, param4, param5, param6, param7, param8, param9));
 		//#endif
 	}
@@ -116,7 +116,7 @@ class ScriptedViewBase : Managed
 	void Log(string message, string param1 = "", string param2 = "", string param3 = "", string param4 = "", string param5 = "", string param6 = "", string param7 = "", string param8 = "", string param9 = "")
 	{
 		//#ifdef COMPONENT_SYSTEM
-		if (Debug_Logging) // || LBMLogLevel >= LogLevel.INFO
+		if (Debug_Logging) // || CF_LBM_LogLevel >= LogLevel.INFO
 			PrintFormat("[Log] %1 - %2", Type(), string.Format(message, param1, param2, param3, param4, param5, param6, param7, param8, param9));
 		//#endif
 	}

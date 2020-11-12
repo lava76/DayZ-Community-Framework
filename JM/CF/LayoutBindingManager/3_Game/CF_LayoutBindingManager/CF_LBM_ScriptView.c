@@ -5,7 +5,7 @@
 
 Example:
 
-class CustomDialogWindow: ScriptView
+class CustomDialogWindow: CF_LBM_ScriptView
 {
 	override string GetLayoutFile() {
 		return "MyMod/gui/Layouts/dialogs/Dialog.layout";
@@ -20,29 +20,28 @@ class CustomDialogWindow: ScriptView
 
 */
 
-class ScriptView : ScriptedViewBase
+class CF_LBM_ScriptView : CF_LBM_ScriptedViewBase
 {
-	protected ref Controller m_Controller;
-	Controller GetController()
+	protected ref CF_LBM_Controller m_Controller;
+	CF_LBM_Controller GetController()
 	{
 		return m_Controller;
 	}
 
 	// Maybe one day we'll get constructor overloading :)
-	void ScriptView()
+	void CF_LBM_ScriptView()
 	{
 		m_LayoutRoot = CreateWidget(null);
 
-		LoadViewProperties(this, PropertyTypeHashMap.FromType(Type()), m_LayoutRoot);
+		CF_LBM.LoadViewProperties(this, CF_LBM_PropertyTypeHashMap.FromType(Type()), m_LayoutRoot);
 
 		m_LayoutRoot.GetScript(m_Controller);
 
 		// If no Controller is specified in the WB Root
-		if (!m_Controller || !m_Controller.IsInherited(Controller))
+		if (!m_Controller || !m_Controller.IsInherited(CF_LBM_Controller))
 		{
-
 			Log("Controller not found on %1, creating...", m_LayoutRoot.GetName());
-			if (!GetControllerType().IsInherited(Controller))
+			if (!GetControllerType().IsInherited(CF_LBM_Controller))
 			{
 				Error("%1 is invalid. Must inherit from Controller!", GetControllerType().ToString());
 				return;
@@ -55,7 +54,7 @@ class ScriptView : ScriptedViewBase
 			}
 
 			// Since its not loaded in the WB, needs to be called here
-			LoadViewProperties(m_Controller, PropertyTypeHashMap.FromType(GetControllerType()), m_LayoutRoot);
+			CF_LBM.LoadViewProperties(m_Controller, CF_LBM_PropertyTypeHashMap.FromType(GetControllerType()), m_LayoutRoot);
 			m_Controller.OnWidgetScriptInit(m_LayoutRoot);
 		}
 
@@ -64,7 +63,7 @@ class ScriptView : ScriptedViewBase
 		//m_LayoutRoot.SetHandler(this);
 	}
 
-	void ~ScriptView()
+	void ~CF_LBM_ScriptView()
 	{
 		delete m_Controller;
 
@@ -108,7 +107,7 @@ class ScriptView : ScriptedViewBase
 	}
 
 	// Useful if you want to set to an existing controller
-	void SetController(Controller controller)
+	void SetController(CF_LBM_Controller controller)
 	{
 		m_Controller = controller;
 		m_Controller.Debug_Logging = Debug_Logging;
@@ -121,6 +120,6 @@ class ScriptView : ScriptedViewBase
 
 	protected typename GetControllerType()
 	{
-		return Controller;
+		return CF_LBM_Controller;
 	}
 };

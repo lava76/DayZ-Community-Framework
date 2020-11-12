@@ -1,6 +1,6 @@
 
-// Essentially the same as ScriptView except GetType is now a Template
-class ScriptViewTemplate<Class T> : ScriptView
+// Essentially the same as CF_LBM_ScriptView except GetType is now a Template
+class CF_LBM_ScriptViewTemplate<Class T> : CF_LBM_ScriptView
 {
 	protected T m_TemplateController;
 
@@ -9,7 +9,7 @@ class ScriptViewTemplate<Class T> : ScriptView
 		return m_TemplateController;
 	}
 
-	void ScriptViewTemplate()
+	void CF_LBM_ScriptViewTemplate()
 	{
 		if (!Class.CastTo(m_TemplateController, m_Controller))
 		{
@@ -22,4 +22,4 @@ class ScriptViewTemplate<Class T> : ScriptView
 	{
 		return T;
 	}
-}
+};

@@ -1,15 +1,15 @@
 
-// Base class for all CommandArgs
-class CommandArgs
+// Base class for all CF_LBM_CommandArgs
+class CF_LBM_CommandArgs
 {
-	ScriptedViewBase Context;
+	CF_LBM_ScriptedViewBase Context;
 };
 
-class CommandArgsT<Class T>: CommandArgs
+class CF_LBM_CommandArgsT<Class T>: CF_LBM_CommandArgs
 {
 	T Source;
 	
-	void CommandArgsT(T source)
+	void CF_LBM_CommandArgsT(T source)
 	{
 		Source = source;
 	}
@@ -17,11 +17,11 @@ class CommandArgsT<Class T>: CommandArgs
 
 // 0: Source Widget
 // 1: Mouse Button
-class ButtonCommandArgs: CommandArgsT<ButtonWidget>
+class CF_LBM_ButtonCommandArgs: CF_LBM_CommandArgsT<ButtonWidget>
 {
 	private int m_MouseButton;
 	
-	void ButtonCommandArgs(ButtonWidget source, int mouseButton)
+	void CF_LBM_ButtonCommandArgs(ButtonWidget source, int mouseButton)
 	{
 		m_MouseButton = mouseButton;
 	}
@@ -40,7 +40,7 @@ class ButtonCommandArgs: CommandArgsT<ButtonWidget>
 
 // 0: Source Widget
 // 1: CheckBox State
-class CheckBoxCommandArgs: CommandArgsT<CheckBoxWidget>
+class CF_LBM_CheckBoxCommandArgs: CF_LBM_CommandArgsT<CheckBoxWidget>
 {	
 	bool GetCheckBoxState()
 	{
@@ -50,7 +50,7 @@ class CheckBoxCommandArgs: CommandArgsT<CheckBoxWidget>
 
 // 0: Source Widget
 // 1: Selected Item
-class XComboBoxCommandArgs: Param2<XComboBoxWidget, int>
+class CF_LBM_XComboBoxCommandArgs: Param2<XComboBoxWidget, int>
 {
 	XComboBoxWidget GetComboBoxWidget()
 	{
@@ -65,7 +65,7 @@ class XComboBoxCommandArgs: Param2<XComboBoxWidget, int>
 
 // 0: Source Widget
 // 1: Selected Widget
-class WrapSpacerCommandArgs: Param2<WrapSpacerWidget, Widget>
+class CF_LBM_WrapSpacerCommandArgs: Param2<WrapSpacerWidget, Widget>
 {
 	WrapSpacerWidget GetWrapSpacerWidget()
 	{

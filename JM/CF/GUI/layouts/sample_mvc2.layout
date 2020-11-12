@@ -45,7 +45,7 @@ FrameWidgetClass root {
        vexactpos 1
        hexactsize 0
        vexactsize 0
-       scriptclass "ViewBinding"
+       scriptclass "CF_LBM_ViewBinding"
        "no focus" 1
        text "Toggle"
        font "gui/fonts/Metron-Bold28"
@@ -68,7 +68,7 @@ FrameWidgetClass root {
      vexactpos 1
      hexactsize 0
      vexactsize 0
-     scriptclass "ViewBinding"
+     scriptclass "CF_LBM_ViewBinding"
      content_halign center
      {
       ScriptParamsClass {

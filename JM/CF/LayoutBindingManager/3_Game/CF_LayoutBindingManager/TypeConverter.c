@@ -1,6 +1,6 @@
-// Used for Converting Data within LayoutBindingManager.
-// Register your own with LayoutBindingManager.RegisterConversionTemplates
-class TypeConverter
+// Used for Converting Data within CF_LBM.
+// Register your own with CF_LBM.RegisterConversionTemplates
+class CF_LBM_TypeConverter
 {
 	// Main Setter and Getter
 	void Set(Class value)
@@ -90,7 +90,7 @@ class TypeConverter
 };
 
 // Inherit from THIS for creating Custom TypeConversions
-class TypeConversionTemplate<Class T> : TypeConverter
+class CF_LBM_TypeConversionTemplate<Class T> : CF_LBM_TypeConverter
 {
 	protected T m_Value;
 
@@ -123,23 +123,23 @@ class TypeConversionTemplate<Class T> : TypeConverter
 
 	override typename GetType()
 	{
-		return TemplateType<T>.GetType();
+		return CF_LBM_TemplateType<T>.GetType();
 	}
 
 	override void SetToController(Class context, string name, int index)
 	{
-		PropertyInfo propertyInfo = GetSubScope(context, name);
+		CF_LBM_PropertyInfo propertyInfo = CF_LBM.GetSubScope(context, name);
 		EnScript.SetClassVar(context, propertyInfo.Name, index, m_Value);
 	}
 
 	override void GetFromController(Class context, string name, int index)
 	{
-		PropertyInfo propertyInfo = GetSubScope(context, name);
+		CF_LBM_PropertyInfo propertyInfo = CF_LBM.GetSubScope(context, name);
 		EnScript.GetClassVar(context, propertyInfo.Name, index, m_Value);
 	}
 };
 
-class TypeConversionBool : TypeConversionTemplate<bool>
+class CF_LBM_TypeConversionBool : CF_LBM_TypeConversionTemplate<bool>
 {
 	override bool GetBool()
 	{
@@ -182,7 +182,7 @@ class TypeConversionBool : TypeConversionTemplate<bool>
 	}
 };
 
-class TypeConversionInt : TypeConversionTemplate<int>
+class CF_LBM_TypeConversionInt : CF_LBM_TypeConversionTemplate<int>
 {
 	override bool GetBool()
 	{
@@ -225,7 +225,7 @@ class TypeConversionInt : TypeConversionTemplate<int>
 	}
 };
 
-class TypeConversionFloat : TypeConversionTemplate<float>
+class CF_LBM_TypeConversionFloat : CF_LBM_TypeConversionTemplate<float>
 {
 	override bool GetBool()
 	{
@@ -268,7 +268,7 @@ class TypeConversionFloat : TypeConversionTemplate<float>
 	}
 };
 
-class TypeConversionString : TypeConversionTemplate<string>
+class CF_LBM_TypeConversionString : CF_LBM_TypeConversionTemplate<string>
 {
 	override bool GetBool()
 	{
@@ -321,7 +321,7 @@ class TypeConversionString : TypeConversionTemplate<string>
 	}
 };
 
-class TypeConversionVector : TypeConversionTemplate<vector>
+class CF_LBM_TypeConversionVector : CF_LBM_TypeConversionTemplate<vector>
 {
 	override vector GetVector()
 	{
@@ -344,9 +344,8 @@ class TypeConversionVector : TypeConversionTemplate<vector>
 	}
 };
 
-class TypeConversionWidget : TypeConversionTemplate<Widget>
+class CF_LBM_TypeConversionWidget : CF_LBM_TypeConversionTemplate<Widget>
 {
-
 	override void SetString(string value)
 	{
 		m_Value = GetWorkbenchGame().GetWorkspace().CreateWidgets(value);
@@ -363,7 +362,7 @@ class TypeConversionWidget : TypeConversionTemplate<Widget>
 	}
 };
 
-class TypeConversionObservable : TypeConversionTemplate<Observable>
+class CF_LBM_TypeConversionObservable : CF_LBM_TypeConversionTemplate<CF_LBM_Observable>
 {
 	override int GetInt()
 	{
@@ -376,7 +375,7 @@ class TypeConversionObservable : TypeConversionTemplate<Observable>
 	}
 };
 
-class TypeConversionObject : TypeConversionTemplate<Object>
+class CF_LBM_TypeConversionObject : CF_LBM_TypeConversionTemplate<Object>
 {
 	override string GetString()
 	{
@@ -399,15 +398,13 @@ class TypeConversionObject : TypeConversionTemplate<Object>
 	}
 };
 
-class TypeConversionScriptView : TypeConversionTemplate<ScriptedViewBase>
+class CF_LBM_TypeConversionScriptView : CF_LBM_TypeConversionTemplate<CF_LBM_ScriptedViewBase>
 {
 	override Widget GetWidget()
 	{
-		// Todo: why can this be null? not sure
+		// why can this be null? not sure
 		if (m_Value)
-		{
 			return m_Value.GetLayoutRoot();
-		}
 
 		return null;
 	}

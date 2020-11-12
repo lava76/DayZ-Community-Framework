@@ -1,9 +1,9 @@
 
-class ScriptedViewBaseHandler : ScriptedWidgetEventHandler
+class CF_LBM_ScriptedViewBaseHandler : ScriptedWidgetEventHandler
 {
-	protected ScriptedViewBase m_ScriptedViewBase;
+	protected CF_LBM_ScriptedViewBase m_ScriptedViewBase;
 
-	void ScriptedViewBaseHandler(ScriptedViewBase viewBase)
+	void CF_LBM_ScriptedViewBaseHandler(CF_LBM_ScriptedViewBase viewBase)
 	{
 		m_ScriptedViewBase = viewBase;
 	}
