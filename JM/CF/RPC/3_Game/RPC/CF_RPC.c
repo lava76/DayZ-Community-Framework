@@ -23,12 +23,9 @@ class CF_RPC
      */
 	static bool RegisterHandler(Class instance)
 	{
-	    auto instanceName = "" + instance;
-	    auto className = instanceName.Substring(0, instanceName.IndexOf("<"));
-
-        if(!m_RegisteredInstances.Contains(className))
+        if(!m_RegisteredInstances.Contains(instance.ClassName()))
         {
-            m_RegisteredInstances.Set(className, instance);
+            m_RegisteredInstances.Set(instance.ClassName(), instance);
 
             return true;
         }
@@ -43,7 +40,7 @@ class CF_RPC
      * @brief Prepares a new RPC send context, which data can be written to using Write() and that is transmitted using SendTo()
      * @code
      * auto rpc = CF.RPC.Prepare("MyHandler", "MyFunction", true);
-     * rpc.Write("My Data");
+     * rpc.Write("My data");
      * rpc.SendTo(receiverIdentity1);
      * rpc.SendTo(receiverIdentity2);
      * @endcode

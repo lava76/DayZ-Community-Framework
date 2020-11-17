@@ -1,5 +1,7 @@
 class CF_RPC_Context extends ScriptRPC
 {
+	protected string m_HandlerType;
+	protected string m_FunctionName;
 	protected bool m_Guaranteed;
 	protected Object m_Target;
 
@@ -21,6 +23,26 @@ class CF_RPC_Context extends ScriptRPC
     }
 
     /**
+     * @brief Resets the written data in the RPC context so it can be sent again with new data.
+     * @code
+     * auto rpc = CF.RPC.Prepare("MyHandler", "MyFunction", true);
+     * rpc.Write("My data");
+     * rpc.SendTo(...);
+     * rpc.ResetData();
+     * rpc.Write("My new data");
+     * rpc.SendTo(...);
+     * @endcode
+     *
+     * @return void
+     */
+    void ResetData()
+    {
+        Reset();
+        Write(m_HandlerType);
+        Write(m_FunctionName);
+    }
+
+    /**
      * @brief [Internal] Prepares a new RPC context. Used by CF.RPC.Prepare()
      *
      * @return CF_RPC_Context RPC write and send context.
@@ -28,6 +50,8 @@ class CF_RPC_Context extends ScriptRPC
     static ref CF_RPC_Context _Prepare(string handlerType, string functionName, bool guaranteed, Object target)
     {
         CF_RPC_Context ctx();
+        ctx.m_HandlerType = handlerType;
+        ctx.m_FunctionName = functionName;
         ctx.m_Guaranteed = guaranteed;
         ctx.m_Target = target;
 
