@@ -18,6 +18,7 @@ class CommunityFramework
 {
     static CF_ObjectManager ObjectManager;
 	static CF_XML XML;
+	static CF_RPC RPC;
 
 	static ref CF_Permission_ManagerBase Permission;
 
@@ -49,6 +50,7 @@ class CommunityFramework
     {
         ObjectManager._Cleanup();
 		XML._Cleanup();
+		RPC._Cleanup();
 
 		Permission._Cleanup();
     }

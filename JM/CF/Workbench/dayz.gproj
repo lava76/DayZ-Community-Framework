@@ -56,6 +56,7 @@ GameProjectClass {
       "scripts/3_Game"
       "JM/CF/Defines"
       "JM/CF/XML/3_Game"
+      "JM/CF/RPC/3_Game"
       "JM/CF/Permissions/3_Game"
       "JM/CF/Scripts/3_Game"
      }

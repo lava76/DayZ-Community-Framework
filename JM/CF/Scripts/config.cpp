@@ -11,7 +11,8 @@ class CfgPatches
 
 			//! Community Framework
 			"JM_CF_Permissions",
-			"JM_CF_XML"
+			"JM_CF_XML",
+			"JM_CF_RPC"
 		};
 	};
 };
@@ -57,6 +58,7 @@ class CfgMods
 				{
 					"JM/CF/Defines",
 					"JM/CF/XML/3_Game",
+					"JM/CF/RPC/3_Game",
 					"JM/CF/Permissions/3_Game",
 					"JM/CF/Scripts/3_Game"
 				};
