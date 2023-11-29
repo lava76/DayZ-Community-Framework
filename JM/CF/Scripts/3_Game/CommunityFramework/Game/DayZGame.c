@@ -10,7 +10,7 @@ modded class DayZGame
 	override void DeferredInit()
 	{
 #ifdef CF_TRACE_ENABLED
-		auto trace = CF_Trace_0(this, "DeferredInit");
+		auto trace = CF_Trace_0(this);
 #endif
 
 		super.DeferredInit();
@@ -34,7 +34,7 @@ modded class DayZGame
 	override void OnRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx)
 	{
 #ifdef CF_TRACE_ENABLED
-		auto trace = CF_Trace_4(this, "OnRPC").Add(sender).Add(target).Add(rpc_type).Add(ctx);
+		auto trace = CF_Trace_4(this).Add(sender).Add(target).Add(rpc_type).Add(ctx);
 #endif
 
 		if (rpc_type == RPCManager.FRAMEWORK_RPC_ID)
@@ -161,7 +161,7 @@ modded class DayZGame
 			RespawnEventParams respawnParams;
 			if (Class.CastTo(respawnParams, params))
 			{
-				CF_ModuleCoreManager.OnMPConnectionLost(this, new CF_EventTimeArgs(respawnParams.param1));
+				CF_ModuleCoreManager.OnRespawn(this, new CF_EventTimeArgs(respawnParams.param1));
 			}
 			break;
 		}

@@ -12,17 +12,15 @@ class JMModuleManager : JMModuleManagerBase
 		m_ModuleList = new array<JMModuleBase>();
 	}
 
-	// Yikes ref
-	ref JMModuleBase GetModule(typename type)
+	JMModuleBase GetModule(typename type)
 	{
 		return JMModuleBase.Cast(CF_ModuleCoreManager.Get(type));
 	}
 
-	// Yikes ref
-	protected void InitModule(ref JMModuleBase module)
+	protected void InitModule(JMModuleBase module)
 	{
 #ifdef CF_TRACE_ENABLED
-		auto trace = CF_Trace_1(this, "InitModule").Add(module);
+		auto trace = CF_Trace_1(this).Add(module);
 #endif
 
 		m_ModuleList.Insert(module);

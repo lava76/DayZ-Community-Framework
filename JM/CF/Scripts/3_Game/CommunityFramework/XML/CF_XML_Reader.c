@@ -12,14 +12,14 @@ class CF_XML_Reader : Managed
 	void CF_XML_Reader()
 	{
 #ifdef CF_TRACE_ENABLED
-		auto trace = CF_Trace_0(this, "CF_XML_Reader");
+		auto trace = CF_Trace_0(this);
 #endif
 	}
 
 	void ~CF_XML_Reader()
 	{
 #ifdef CF_TRACE_ENABLED
-		auto trace = CF_Trace_0(this, "~CF_XML_Reader");
+		auto trace = CF_Trace_0(this);
 #endif
 	}
 	
@@ -208,7 +208,7 @@ class CF_XML_Reader : Managed
 
 	bool IsLetterOrDigit(string c, bool isQuoted)
 	{
-		int i = c.Hash();
+		int i = c.ToAscii();
 		if (i >= 255 || i < 0) //! To my dear @DaOne, please don't use UTF-8 characters :)
 			return true;
 
