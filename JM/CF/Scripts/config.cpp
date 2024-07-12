@@ -39,7 +39,7 @@ class CfgMods
             //"CF_TRACE_ENABLED",
             "CF_TRACE_STACK_NAME_ASSUMPTION_FIX",
             "CF_GHOSTICONS",
-            //"CF_MODSTORAGE",
+            "CF_MODSTORAGE",
             //"CF_MODSTORAGE_TEST",
             //"CF_MODSTORAGE_TRACE",
             "CF_MODSTORAGE_DISABLE",
@@ -47,7 +47,8 @@ class CfgMods
             "CF_SURFACES",
             "CF_MODULES",
             "CF_REF_FIX",
-            "CF_BUGFIX_REF" // Same as CF_REF_FIX but for mods that already anticipated a different name
+            "CF_BUGFIX_REF", // Same as CF_REF_FIX but for mods that already anticipated a different name
+            "CF_BUGFIX_XML"
         };
         
 		dependencies[] = { "Core", "Game", "World", "Mission" };
