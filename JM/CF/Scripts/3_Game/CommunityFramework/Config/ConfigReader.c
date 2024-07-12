@@ -207,6 +207,9 @@ class ConfigReader : Managed
 		if ( i == 46 )
 			return true;
 
+		if ( i == 95 )
+			return true;
+
 		if ( i > 90 )
 			i -= 32;
 
