@@ -42,8 +42,6 @@ class CfgMods
             "CF_MODSTORAGE",
             //"CF_MODSTORAGE_TEST",
             //"CF_MODSTORAGE_TRACE",
-            "CF_MODSTORAGE_DISABLE",
-            "CF_MODSTORAGE_MODULE_DISABLE",
             "CF_SURFACES",
             "CF_MODULES",
             "CF_REF_FIX",

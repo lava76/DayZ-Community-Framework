@@ -39,10 +39,8 @@ class CF_ModStorageObject<Class T> : CF_ModStorageBase
 
 		if (!m_HasModStorage)
 		{
-#ifndef CF_MODSTORAGE_MODULE_DISABLE
 			// Add the entity to the file so on next load the game knows that it can read the modstorage for the entity
 			m_Module.AddEntity(m_Entity);
-#endif
 
 			m_HasModStorage = true;
 		}
@@ -97,7 +95,6 @@ class CF_ModStorageObject<Class T> : CF_ModStorageBase
 			return true;
 		}
 
-#ifndef CF_MODSTORAGE_MODULE_DISABLE
 		// If the version is less than the wipe file, the entity will be added automatically in 'OnStoreSave'
 		if (version >= CF_ModStorage.GAME_VERSION_WIPE_FILE)
 		{
@@ -110,7 +107,6 @@ class CF_ModStorageObject<Class T> : CF_ModStorageBase
 				return true;
 			}
 		}
-#endif
 
 		int cf_version;
 		if (!ctx.Read(cf_version))
