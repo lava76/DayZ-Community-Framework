@@ -70,7 +70,7 @@ class CF_XML_Reader : Managed
 
 		if (_bufIdx == 0) _wasNewLine = true;
 
-		return _lines[_arrIdx].SubstringUtf8(_bufIdx, 1);
+		return _lines[_arrIdx].Substring(_bufIdx, 1);
 	}
 
 	private string ReadChar()
@@ -93,7 +93,7 @@ class CF_XML_Reader : Managed
 			}
 		}
 
-		return _lines[_arrIdx].SubstringUtf8(_bufIdx, 1);
+		return _lines[_arrIdx].Substring(_bufIdx, 1);
 	}
 
 	bool EOF()
@@ -208,7 +208,7 @@ class CF_XML_Reader : Managed
 
 	bool IsLetterOrDigit(string c, bool isQuoted)
 	{
-		int i = c.Hash();
+		int i = c.ToAscii();
 		if (i >= 255 || i < 0) //! To my dear @DaOne, please don't use UTF-8 characters :)
 			return true;
 
@@ -241,14 +241,27 @@ class CF_XML_Reader : Managed
 
 		return c;
 	}
+	
+	bool IsCharacterAllowed(string c, array<string> allowed)
+	{
+		foreach (auto aC : allowed)
+		{
+			if (c == aC)
+			{
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
-	string GetWord()
+	string GetWord(array<string> allowed)
 	{
 		string word = "";
 
 		string c = SkipWhitespace();
 
-		while (IsLetterOrDigit(c) && !EOF())
+		while ((IsLetterOrDigit(c) || IsCharacterAllowed(c, allowed)) && !EOF())
 		{
 			word = word + c;
 			c = GetCharacter();
@@ -259,7 +272,7 @@ class CF_XML_Reader : Managed
 		return word;
 	}
 
-	string GetQuotedWord(out bool isQuoted)
+	string GetQuotedWord(array<string> allowed, out bool isQuoted)
 	{
 		string word = "";
 
@@ -271,7 +284,7 @@ class CF_XML_Reader : Managed
 			isQuoted = true;
 		}
 
-		while ((IsLetterOrDigit(c, isQuoted) || c == "") && !EOF())
+		while ((IsLetterOrDigit(c, isQuoted) || c == "" || IsCharacterAllowed(c, allowed)) && !EOF())
 		{
 			word = word + c;
 			c = GetCharacter();

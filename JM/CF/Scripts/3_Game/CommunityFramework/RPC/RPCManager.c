@@ -108,7 +108,7 @@ class RPCManager
 		}
 	}
 
-	void SendRPC( string modName, string funcName, ref Param params = NULL, bool guaranteed = false, ref PlayerIdentity sendToIdentity = NULL, ref Object sendToTarget = NULL )
+	void SendRPC( string modName, string funcName, Param params = NULL, bool guaranteed = false, PlayerIdentity sendToIdentity = NULL, Object sendToTarget = NULL )
 	{
 		#ifdef CF_TRACE_ENABLED
 		auto trace = CF_Trace_6(this).Add(modName).Add(funcName).Add(params).Add(guaranteed).Add(sendToIdentity).Add(sendToTarget);
@@ -141,7 +141,7 @@ class RPCManager
 	/**
 	 * Warning: Does not support "SingleplayerExecutionType.Both"
 	 */
-	void SendRPCs( string modName, string funcName, ref array< ref Param > params, bool guaranteed = false, ref PlayerIdentity sendToIdentity = NULL, ref Object sendToTarget = NULL )
+	void SendRPCs( string modName, string funcName, array< ref Param > params, bool guaranteed = false, PlayerIdentity sendToIdentity = NULL, Object sendToTarget = NULL )
 	{
 		#ifdef CF_TRACE_ENABLED
 		auto trace = CF_Trace_6(this).Add(modName).Add(funcName).Add(params).Add(guaranteed).Add(sendToIdentity).Add(sendToTarget);
@@ -184,6 +184,22 @@ class RPCManager
 		m_RPCActions[ modName ].Set( funcName, wrapper );
 
 		return true;
+	}
+
+	void RemoveRPC( string modName, string funcName )
+	{
+		#ifdef CF_TRACE_ENABLED
+		auto trace = CF_Trace_2(this).Add(modName).Add(funcName);
+		#endif
+
+		if ( m_RPCActions.Contains( modName ) )
+		{
+			m_RPCActions[ modName ].Remove( funcName );
+			if( m_RPCActions[ modName ].Count() == 0 )
+			{
+				m_RPCActions.Remove( modName );
+			}
+		}
 	}
 };
 
