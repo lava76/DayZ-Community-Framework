@@ -1,4 +1,3 @@
-#ifndef DAYZ_1_25
 modded class BoatScript
 {
 #ifdef CF_MODSTORAGE
@@ -17,6 +16,11 @@ modded class BoatScript
 		{
 			return false;
 		}
+
+		//! Since CF wasn't updated when DayZ 1.26 released, BoatScript storage data does not carry
+		//! CF data *at all* if the entity isn't tracked, so we have to return early
+		if (!CF_Modules<CF_ModStorageModule>.Get().IsEntity(this))
+			return true;
 
 		return m_CF_ModStorage.OnStoreLoad(ctx, version);
 	}
@@ -37,4 +41,3 @@ modded class BoatScript
 		return true;
 	}
 };
-#endif
