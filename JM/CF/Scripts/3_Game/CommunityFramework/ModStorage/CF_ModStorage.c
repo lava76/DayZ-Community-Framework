@@ -9,7 +9,7 @@ class CF_ModStorage
 	static const int VERSION = 5;
 	
 	static const int GAME_VERSION_FIRST_INSTALL = 116;
-	static const int GAME_VERSION_WIPE_FILE = 129;
+	static const int GAME_VERSION_WIPE_FILE = 141;  //! DayZ 1.27 GAME_STORAGE_VERSION
 
 	static const int MODSTORAGE_INITIAL_IMPLEMENTATION = 2;
 
